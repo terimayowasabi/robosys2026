@@ -5,7 +5,7 @@
 import sys
 
 
-dev tonum(s):
+def tonum(s):
     try:
         return int(s)
     except ValueError:
