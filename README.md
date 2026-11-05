@@ -4,9 +4,9 @@
 # plus コマンド
 ![test](https://github.com/terimayowasabi/robosys2026/actions/workflows/test.yml/badge.svg)  
 -標準入力から読み込んだ数字を足す。  
-```rudy:実行例  
-`$seq 5 | ./plus`  
-`15`
+```ruby:実行例  
+$seq 5 | ./plus  
+15
 ```
 
 ## 必要なソフトウェア
