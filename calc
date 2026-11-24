@@ -6,6 +6,48 @@ import sys
 import math
 
 
+def MulDiv(formula):
+
+    n = 0
+
+    while n < len(formula): 
+        if formula[n] == "*":
+            ans = formula[n-1] * formula[n+1]
+            formula[n-1:n+2] = [ans]
+            n = n-1
+
+        elif formula[n] == "/":
+            ans = formula[n-1] / formula[n+1]
+            formula[n-1:n+2] = [ans]
+            n = n-1
+
+        else:
+            n += 1
+
+    return formula
+
+
+def AddSub(formula):
+    
+    n = 0
+    
+    while n < len(formula):
+        if formula[n] == "+":
+            ans = formula[n-1] + formula[n+1]
+            formula[n-1:n+2] = [ans]
+            n = n-1
+
+        elif formula[n] == "-":
+            ans = formula[n-1] - formula[n+1]
+            formula[n-1:n+2] = [ans]
+            n = n-1
+
+        else:
+            n += 1
+
+    return formula
+
+
 formula = input().split()
 
 for i in range(len(formula)):
@@ -14,6 +56,16 @@ for i in range(len(formula)):
 
     except ValueError:
         pass
+
+if "*" in formula or "/" in formula:
+    formula = MulDiv(formula)
+
+if "+" in formula or "-" in formula:
+    formula = AddSub(formula)
+
+print(formula)
+
+
 
 #------入力と数字と記号の仕分け確認-------------------
 #numbers = []
@@ -36,36 +88,3 @@ for i in range(len(formula)):
 #print(operators)
 #print(others)
 #-------------------------------------------------------
-
-n = 0
-m = 0
-
-while n < len(formula): 
-    if formula[n] == "*":
-        ans = formula[n-1] * formula[n+1]
-        formula[n-1:n+2] = [ans]
-        n = n-1
-
-    elif formula[n] == "/":
-        ans = formula[n-1] / formula[n+1]
-        formula[n-1:n+2] = [ans]
-        n = n-1
-
-    else:
-        n += 1
-
-while m < len(formula):
-    if formula[m] == "+":
-        ans = formula[m-1] + formula[m+1]
-        formula[m-1:m+2] = [ans]
-        m = m-1
-
-    elif formula[m] == "-":
-        ans = formula[m-1] - formula[m+1]
-        formula[m-1:m+2] = [ans]
-        m = m-1
-
-    else:
-        m += 1
-
-print(formula)
