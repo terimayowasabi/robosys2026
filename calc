@@ -6,6 +6,16 @@ import sys
 import math
 
 
+def arithmetic(form):
+    if "*" in form or "/" in form:
+        form = MulDiv(form)
+
+    if "+" in form or "-" in form:
+        form = AddSub(form)
+
+    return form
+
+
 def MulDiv(formula):
 
     n = 0
@@ -57,15 +67,27 @@ for i in range(len(formula)):
     except ValueError:
         pass
 
-if "*" in formula or "/" in formula:
-    formula = MulDiv(formula)
+o = 0
 
-if "+" in formula or "-" in formula:
-    formula = AddSub(formula)
+while o < len(formula):
+    if formula[o] == "(":
+        paren = []
+        first = o
+        o += 1
+
+        while formula[o] != ")":
+            paren.append(formula[o])
+            o += 1
+
+        paren = arithmetic(paren)
+        formula[first:o+1] = paren
+
+    else:
+        o += 1
+
+formula = arithmetic(formula)
 
 print(formula)
-
-
 
 #------入力と数字と記号の仕分け確認-------------------
 #numbers = []
