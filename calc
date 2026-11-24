@@ -14,55 +14,58 @@ for i in range(len(formula)):
     except ValueError:
         pass
 
+#------入力と数字と記号の仕分け確認-------------------
+#numbers = []
+#operators = []
+#others = []
 
-numbers = []
-operators = []
-others = []
+#for i in range(len(formula)):
+#    try:
+#        numbers.append(float(formula[i]))
 
-for i in range(len(formula)):
-    try:
-        numbers.append(float(formula[i]))
+#    except ValueError:
+#        if formula[i] in ["*","/","+","-"]:
+#            operators.append(formula[i])
 
-    except ValueError:
-        if formula[i] in ["*","/","+","-"]:
-            operators.append(formula[i])
+#        else:
+#            others.append(formula[i])
 
-        else:
-            others.append(formula[i])
+#print(formula)
+#print(numbers)
+#print(operators)
+#print(others)
+#-------------------------------------------------------
+
+
+n = 0
+m = 0
+
+while n < len(formula): 
+    if formula[n] == "*":
+        ans = formula[n-1] * formula[n+1]
+        formula[n-1:n+2] = [ans]
+        n = n-1
+
+    elif formula[n] == "/":
+        ans = formula[n-1] / formula[n+1]
+        formula[n-1:n+2] = [ans]
+        n = n-1
+
+    else:
+        n += 1
+
+while m < len(formula):
+    if formula[m] == "+":
+        ans = formula[m-1] + formula[m+1]
+        formula[m-1:m+2] = [ans]
+        m = m-1
+
+    elif formula[m] == "-":
+        ans = formula[m-1] - formula[m+1]
+        formula[m-1:m+2] = [ans]
+        m = m-1
+
+    else:
+        m += 1
 
 print(formula)
-print(numbers)
-print(operators)
-print(others)
-
-#n = 0
-#
-#while n < len(formula): 
-#    if formula[n] == "*":
-#        ans = formula[n-1] * formula[n+1]
-#        formula[n-1:n+2] = [ans]
-#        n = n-1
-#
-#    elif formula[n] == "/":
-#        ans = formula[n-1] / formula[n+1]
-#        formula[n-1:n+2] = [ans]
-#        n = n-1
-#
-#    else:
-#        n += 1
-#
-#while n < len(formula):
-#    if formula[n] == "+":
-#            ans = formula[n-2] + formula[n+1]
-#            formula[n-1:n+1] = [ans]
-#            n = n-1
-#
-#        elif formula[n] == "-":
-#            ans = formula[n-2] - formula[n+1]
-#            formula[n-1:n+1] = [ans]
-#            n = n-1
-#
-#        else:
-#            n += 1
-#
-#print(formula)
