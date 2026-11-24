@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Tomoya Suzuki
+# SPDX-License-Identifier: BSD-3-Clause
+
+import sys
+import math
+
+
+formula = input().split()
+for i in range(len(formula)):
+    try:
+        formula[i] = float(formula[i])
+
+    except ValueError:
+        pass
+
+
+numbers = []
+operators = []
+others = []
+
+for i in range(len(formula)):
+    try:
+        numbers.append(float(formula[i]))
+
+    except ValueError:
+        if formula[i] in ["*","/","+","-"]:
+            operators.append(formula[i])
+
+        else:
+            others.append(formula[i])
+
+print(formula)
+print(numbers)
+print(operators)
+print(others)
+
+#n = 0
+#
+#while n < len(formula): 
+#    if formula[n] == "*":
+#        ans = formula[n-1] * formula[n+1]
+#        formula[n-1:n+2] = [ans]
+#        n = n-1
+#
+#    elif formula[n] == "/":
+#        ans = formula[n-1] / formula[n+1]
+#        formula[n-1:n+2] = [ans]
+#        n = n-1
+#
+#    else:
+#        n += 1
+#
+#while n < len(formula):
+#    if formula[n] == "+":
+#            ans = formula[n-2] + formula[n+1]
+#            formula[n-1:n+1] = [ans]
+#            n = n-1
+#
+#        elif formula[n] == "-":
+#            ans = formula[n-2] - formula[n+1]
+#            formula[n-1:n+1] = [ans]
+#            n = n-1
+#
+#        else:
+#            n += 1
+#
+#print(formula)
