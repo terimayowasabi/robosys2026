@@ -16,6 +16,73 @@ def arithmetic(form):
     return form
 
 
+def trigonometric(form):
+    n = 0
+
+    while n < len(form):
+        if form[n] == "sin":
+
+            form[n:n+2] = [math.sin(math.radians(form[n+1]))]
+            n += 1
+
+        elif form[n] == "cos":
+            form[n:n+2] = [math.cos(math.radians(form[n+1]))]
+            n += 1
+
+        elif form[n] == "tan":
+            form[n:n+2] = [math.tan(math.radians(form[n+1]))]
+            n += 1
+
+        else:
+            n += 1
+
+    return form
+
+
+def priority(form):
+    n = 0
+    depth = 0
+
+    while n < len(form):
+        if form[n] == "(":
+            paren = []
+            first = n
+            n += 1
+            depth += 1
+
+            while depth > 0:
+
+                if form[n] == "(":
+                    depth += 1
+                    paren.append(form[n])
+                    n += 1
+
+                elif form[n] == ")":
+                    depth -= 1
+
+                    if depth == 0:
+                        paren = priority(paren)
+                        break
+
+                    else:
+                        paren.append(form[n])
+                        n += 1
+
+                else:
+                    paren.append(form[n])
+                    n += 1
+
+            paren = trigonometric(paren)
+            paren = arithmetic(paren)
+            form[first:n+1] = paren
+            n = first
+
+        else:
+            n += 1
+
+    return form
+
+
 def MulDiv(formula):
 
     n = 0
@@ -67,23 +134,8 @@ for i in range(len(formula)):
     except ValueError:
         pass
 
-o = 0
-
-while o < len(formula):
-    if formula[o] == "(":
-        paren = []
-        first = o
-        o += 1
-
-        while formula[o] != ")":
-            paren.append(formula[o])
-            o += 1
-
-        paren = arithmetic(paren)
-        formula[first:o+1] = paren
-
-    else:
-        o += 1
+if "sin" in formula or "cos" in formula or "tan" in formula:
+    formula = trigonometric(formula)
 
 formula = arithmetic(formula)
 
