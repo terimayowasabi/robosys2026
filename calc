@@ -21,7 +21,7 @@ def tokenize(form):
             formula.append(number)
             number = ""
 
-        elif form[n] in "+-*/()^":
+        elif form[n] in "+-*/()":
             formula.append(form[n])
             n += 1
 
@@ -51,7 +51,7 @@ def tokenize(form):
 #四則演算の実行
 def arithmetic(form):
     form = minus(form)
-    if "*" in form or "/" in form or "^" in form:
+    if "*" in form or "/" in form:
         form = MulDiv(form)
 
     if "+" in form or "-" in form:
@@ -64,7 +64,7 @@ def arithmetic(form):
 def minus(form):
     n = 0
     while n < len(form):
-        if form[n] == "-" and (n == 0 or form[n-1] in ["+","-","*","/","(","^","sin","cos","tan"]):
+        if form[n] == "-" and (n == 0 or form[n-1] in ["+","-","*","/","(","sin","cos","tan"]):
             if isinstance(form[n+1],(int,float)):
                 form[n:n+2] = [form[n+1] * -1]
 
@@ -149,27 +149,13 @@ def MulDiv(form):
 
     while n < len(form): 
         if form[n] == "*":
-            if form[n+1] == "*":
-                if form[n+2] == 0.5:
-                    form[n-1:n+3] = [math.sqrt(form[n-1])]
-                    n = n-1
-
-                else:
-                    form[n-1:n+3] = [math.pow(form[n-1],form[n+2])]
-                    n = n-1
-
-            else:
-                ans = form[n-1] * form[n+1]
-                form[n-1:n+2] = [ans]
-                n = n-1
+            ans = form[n-1] * form[n+1]
+            form[n-1:n+2] = [ans]
+            n = n-1
 
         elif form[n] == "/":
             ans = form[n-1] / form[n+1]
             form[n-1:n+2] = [ans]
-            n = n-1
-
-        elif form[n] == "^":
-            form[n-1:n+2] = [math.pow(form[n-1],form[n+1])]
             n = n-1
 
         else:
