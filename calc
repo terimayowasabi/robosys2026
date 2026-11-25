@@ -6,7 +6,50 @@ import sys
 import math
 
 
+#入力処理
+def tokenize(form):
+    formula = []
+    n = 0 
+    number = ""
+    
+    while n < len(form):
+        if form[n].isdigit():
+            while n < len(form) and (form[n].isdigit() or form[n] == "."):
+                number += form[n]
+                n += 1
+
+            formula.append(number)
+            number = ""
+
+        elif form[n] in "+-*/()":
+            formula.append(form[n])
+            n += 1
+
+        elif form[n:n+3] == "sin" or form[n:n+3] == "cos" or form[n:n+3] == "tan":
+            formula.append(form[n:n+3])
+            n += 3
+
+        elif form[n:n+2] == "pi":
+            formula.append(math.pi)
+            n += 2
+
+        else:
+            n += 1
+
+
+    for i in range(len(formula)):
+        try:
+            formula[i] = float(formula[i])
+
+        except ValueError:
+            pass
+
+    return formula
+
+
+#四則演算の実行
 def arithmetic(form):
+    form = minus(form)
     if "*" in form or "/" in form:
         form = MulDiv(form)
 
@@ -16,6 +59,7 @@ def arithmetic(form):
     return form
 
 
+#三角関数の処理
 def trigonometric(form):
     n = 0
 
@@ -39,6 +83,7 @@ def trigonometric(form):
     return form
 
 
+#括弧の優先処理
 def priority(form):
     n = 0
     depth = 0
@@ -80,59 +125,55 @@ def priority(form):
         else:
             n += 1
 
+    return form 
+
+
+#乗除の計算
+def MulDiv(form):
+
+    n = 0
+
+    while n < len(form): 
+        if form[n] == "*":
+            ans = form[n-1] * form[n+1]
+            form[n-1:n+2] = [ans]
+            n = n-1
+
+        elif form[n] == "/":
+            ans = form[n-1] / form[n+1]
+            form[n-1:n+2] = [ans]
+            n = n-1
+
+        else:
+            n += 1
+
     return form
 
 
-def MulDiv(formula):
-
+#加減の計算
+def AddSub(form):
+    
     n = 0
-
-    while n < len(formula): 
-        if formula[n] == "*":
-            ans = formula[n-1] * formula[n+1]
-            formula[n-1:n+2] = [ans]
+    
+    while n < len(form):
+        if form[n] == "+":
+            ans = form[n-1] + form[n+1]
+            form[n-1:n+2] = [ans]
             n = n-1
 
-        elif formula[n] == "/":
-            ans = formula[n-1] / formula[n+1]
-            formula[n-1:n+2] = [ans]
+        elif form[n] == "-":
+            ans = form[n-1] - form[n+1]
+            form[n-1:n+2] = [ans]
             n = n-1
 
         else:
             n += 1
 
-    return formula
+    return form
 
 
-def AddSub(formula):
-    
-    n = 0
-    
-    while n < len(formula):
-        if formula[n] == "+":
-            ans = formula[n-1] + formula[n+1]
-            formula[n-1:n+2] = [ans]
-            n = n-1
-
-        elif formula[n] == "-":
-            ans = formula[n-1] - formula[n+1]
-            formula[n-1:n+2] = [ans]
-            n = n-1
-
-        else:
-            n += 1
-
-    return formula
-
-
-formula = input().split()
-
-for i in range(len(formula)):
-    try:
-        formula[i] = float(formula[i])
-
-    except ValueError:
-        pass
+formula = tokenize(input())
+print(formula)
 
 if "(" in formula:
     formula = priority(formula)
@@ -143,25 +184,3 @@ if "sin" in formula or "cos" in formula or "tan" in formula:
 formula = arithmetic(formula)
 
 print(formula[0])
-
-#------入力と数字と記号の仕分け確認-------------------
-#numbers = []
-#operators = []
-#others = []
-
-#for i in range(len(formula)):
-#    try:
-#        numbers.append(float(formula[i]))
-
-#    except ValueError:
-#        if formula[i] in ["*","/","+","-"]:
-#            operators.append(formula[i])
-
-#        else:
-#            others.append(formula[i])
-
-#print(formula)
-#print(numbers)
-#print(operators)
-#print(others)
-#-------------------------------------------------------
