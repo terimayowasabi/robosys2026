@@ -142,7 +142,7 @@ if "sin" in formula or "cos" in formula or "tan" in formula:
 
 formula = arithmetic(formula)
 
-print(formula)
+print(formula[0])
 
 #------入力と数字と記号の仕分け確認-------------------
 #numbers = []
