@@ -44,6 +44,7 @@ def tokenize(form):
         except ValueError:
             pass
 
+    formula = minus(formula)
     return formula
 
 
@@ -55,6 +56,19 @@ def arithmetic(form):
 
     if "+" in form or "-" in form:
         form = AddSub(form)
+
+    return form
+
+
+#減算と負号の区別
+def minus(form):
+    n = 0
+    while n < len(form):
+        if form[n] == "-" and (n == 0 or form[n-1] in ["+","-","*","/","(","sin","cos","tan"]):
+            if isinstance(form[n+1],(int,float)):
+                form[n:n+2] = [form[n+1] * -1]
+
+        n += 1
 
     return form
 
@@ -173,7 +187,6 @@ def AddSub(form):
 
 
 formula = tokenize(input())
-print(formula)
 
 if "(" in formula:
     formula = priority(formula)
