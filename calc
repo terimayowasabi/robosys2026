@@ -134,6 +134,9 @@ for i in range(len(formula)):
     except ValueError:
         pass
 
+if "(" in formula:
+    formula = priority(formula)
+
 if "sin" in formula or "cos" in formula or "tan" in formula:
     formula = trigonometric(formula)
 
