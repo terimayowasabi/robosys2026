@@ -72,7 +72,7 @@ $ echo “sin(90)” | ./calc
 $ echo “cos(10+35)” | ./calc
  0.7071067811865476
 
-$echo “tan(100-10) | ./calc
+$ echo “tan(100-10)” | ./calc
  1.633123935319537e+16
 
 $ echo “cos45” | ./calc
