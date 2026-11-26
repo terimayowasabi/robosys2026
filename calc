@@ -86,7 +86,11 @@ def minus(form):
     while n < len(form):
         if form[n] == "-" and (n == 0 or form[n-1] in ["+","-","*","/","(","^","sin","cos","tan","root"]):
             if isinstance(form[n+1],(int,float)):
-                form[n:n+2] = [form[n+1] * -1]
+                if n+2 < len(form) and form[n+2] == "^":
+                    pass
+
+                else:
+                    form[n:n+2] = [form[n+1] * -1]
 
         n += 1
 
@@ -223,7 +227,11 @@ def powsqrt(form):
     
     while n >= 0:
         if form[n] == "^":
-            if form[n+1] == 0.5:
+            if form[n+1] == "-":
+                form[n+1:n+3] = [-1*form[n+2]]
+                form[n-1:n+2] = [math.pow(form[n-1],form[n+1])]
+
+            elif form[n+1] == 0.5:
                 form[n-1:n+2] = [math.sqrt(form[n-1])]
 
             else:
