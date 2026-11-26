@@ -12,6 +12,8 @@ def tokenize(form):
     formula = []
     n = 0 
     number = ""
+
+    form = form.replace(" ","")
     
     while n < len(form):
         if form[n].isdigit():
@@ -20,6 +22,9 @@ def tokenize(form):
                 n += 1
 
             formula.append(number)
+            if n < len(form) and (form[n] == "(" or form[n:n+3] in ["sin","cos","tan"] or form[n:n+2] == "pi" or form[n:n+4] == "root"):
+                formula.append("*")
+
             number = ""
 
         elif form[n:n+2] == "**":
@@ -29,6 +34,8 @@ def tokenize(form):
         elif form[n] in "+-*/()^":
             formula.append(form[n])
             n += 1
+            if n < len(form) and form[n-1] == ")" and form[n] == "(":
+                formula.append("*")
 
         elif form[n:n+4] == "root":
             formula.append(form[n:n+4])
