@@ -2,20 +2,25 @@
 このリポジトリは2026年のロボットシステム学の講義で利用するリポジトリです。いくつかのソフトウェアパッケージを公開しています。   
 プログラミングの経験が浅いため、コードに間違い、改善の余地がある場合がありますのでご注意ください。   
 
-# plus コマンド
 ![test](https://github.com/terimayowasabi/robosys2026/actions/workflows/test.yml/badge.svg)  
-- 標準入力から読み込んだ数字を足す。  
-```ruby:実行例  
-$ seq 5 | ./plus  
- 15
+
+# calc コマンド  
+![test](https://github.com/terimayowasabi/robosys2026/actions/workflows/test.yml/badge.svg)
+
+## 標準入力から読み込んだ数式を計算する。  
+
+- インストール方法  
+  1. GitHub上で** robosys2026 ** のリポジトリのCode からURLをコピーする。  
+  [robosys2026](https://github.com/terimayowasabi/robosys2026 "robosys2026")
   
-$ echo 0.5 | ./plus  
- 0.5  
-```
-# calc コマンド
-## 標準入力から読み込んだ数式を計算する。
-### 入力
-$ echo “数式” | ./calc で利用できる。
+  2. terminalで` git clone URL ` を行いリポジトリをクローンする。
+  
+  3. ` cd robosys2026 ` でrobosys2026へ移動。  
+  
+  4. calc のぎっこう権限がない場合、` chmod +x calc ` で権限を付与する。  
+
+- 入力
+` $ echo “数式” | ./calc` で利用できる。
 
 - 注意事項
   - 数式に含まれる空白、計算に利用できない文字は読み飛ばして計算を行う。
@@ -72,8 +77,8 @@ $ echo “sin(90)” | ./calc
 $ echo “cos(10+35)” | ./calc
  0.7071067811865476
 
-$ echo “tan(100-10)” | ./calc
- 1.633123935319537e+16
+$ echo “tan(10-10)” | ./calc
+ 0 
 
 $ echo “cos45” | ./calc
  0.7071067811865476
