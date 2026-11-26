@@ -2,7 +2,7 @@
 このリポジトリは2026年のロボットシステム学の講義で利用するリポジトリです。いくつかのソフトウェアパッケージを公開しています。   
 プログラミングの経験が浅いため、コードに間違い、改善の余地がある場合がありますのでご注意ください。   
 
-![test](https://github.com/terimayowasabi/robosys2026/actions/workflows/test.yml/badge.svg)  
+
 
 # calc コマンド  
 ![test](https://github.com/terimayowasabi/robosys2026/actions/workflows/test.yml/badge.svg)
