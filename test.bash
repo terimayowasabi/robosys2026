@@ -56,7 +56,7 @@ out=$(echo "tan(100-100)" | ./calc)
 [ "$?" = 0 ]       || ng "$LINENO"
 [ "${out}" = 0 ]  || ng "$LINENO"
 
-out=$(echo "cos0" | ./calc)
+out=$(echo "cos180" | ./calc)
 [ "$?" = 0 ]       || ng "$LINENO"
 [ "${out}" = -1.0 ]  || ng "$LINENO"
 
