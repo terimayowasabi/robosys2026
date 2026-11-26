@@ -22,11 +22,11 @@ def tokenize(form):
             formula.append(number)
             number = ""
 
-        elif form[n:n+2] == "**":                                          formula.append("^")
+        elif form[n:n+2] == "**":
+            formula.append("^")
             n += 2
 
         elif form[n] in "+-*/()^":
-
             formula.append(form[n])
             n += 1
 
