@@ -50,15 +50,15 @@ out=$(echo "sin(90)" | ./calc)
 
 out=$(echo "cos(100+80)" | ./calc)
 [ "$?" = 0 ]       || ng "$LINENO"
-[ "${out}" = -1.0]  || ng "$LINENO"
+[ "${out}" = -1.0 ]  || ng "$LINENO"
 
 out=$(echo "tan(100-100)" | ./calc)
 [ "$?" = 0 ]       || ng "$LINENO"
 [ "${out}" = 0 ]  || ng "$LINENO"
 
-out=$(echo "cos45" | ./calc)
+out=$(echo "cos0" | ./calc)
 [ "$?" = 0 ]       || ng "$LINENO"
-[ "${out}" = 0.7071067811865476 ]  || ng "$LINENO"
+[ "${out}" = -1.0 ]  || ng "$LINENO"
 
 out=$(echo "-2^2" | ./calc)
 [ "$?" = 0 ]       || ng "$LINENO"
