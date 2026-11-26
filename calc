@@ -147,6 +147,7 @@ def priority(form):
                     n += 1
 
             paren = trigonometric(paren)
+            paren = powsqrt(paren)
             paren = arithmetic(paren)
             form[first:n+1] = paren
             n = first
@@ -203,23 +204,25 @@ def AddSub(form):
 
 #累乗と平方根の計算
 def powsqrt(form):
+    m = 0
 
-    n = 0
+    while m < len(form):
+        if form[m] == "root":
+            form[m:m+2] = [math.sqrt(form[m+1])]
 
-    while n < len(form):
+        m += 1
+
+    n = len(form)-1
+    
+    while n >= 0:
         if form[n] == "^":
             if form[n+1] == 0.5:
                 form[n-1:n+2] = [math.sqrt(form[n-1])]
-                n = n-1
 
             else:
                 form[n-1:n+2] = [math.pow(form[n-1],form[n+1])]
-                n = n-1
 
-        elif form[n] == "root":
-            form[n:n+2] = [math.sqrt(form[n+1])]
-
-        n += 1
+        n -= 1
 
     return form
 
@@ -229,11 +232,12 @@ formula = tokenize(input())
 if "(" in formula:
     formula = priority(formula)
 
+if "sin" in formula or "cos" in formula or "tan" in formula:
+    formula = trigonometric(formula)
+
 if "^" in formula or "root" in formula:
     formula = powsqrt(formula)
 
-if "sin" in formula or "cos" in formula or "tan" in formula:
-    formula = trigonometric(formula)
 
 formula = arithmetic(formula)
 if formula[0] == -0:
